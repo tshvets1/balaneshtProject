@@ -1,0 +1,575 @@
+:root,
+[data-theme="evening"] {
+  --bg-1: #140b05;
+  --bg-2: #3a1d0b;
+  --bg-3: #5c2f10;
+  --amber: #e8a33d;
+  --amber-light: #ffd27a;
+  --amber-ink: #231202;
+  --card-bg: rgba(255, 246, 232, 0.06);
+  --card-border: rgba(232, 163, 61, 0.35);
+  --input-bg: rgba(0, 0, 0, 0.25);
+  --ticker-bg: rgba(0, 0, 0, 0.35);
+  --text: #fbe9d0;
+  --text-dim: #c9ad8c;
+  --radius: 20px;
+  --grain-opacity: 0.05;
+  --grain-blend: overlay;
+}
+
+[data-theme="morning"] {
+  --bg-1: #fff6e8;
+  --bg-2: #ffdfa8;
+  --bg-3: #ffbd73;
+  --amber: #c9771f;
+  --amber-light: #e2a33d;
+  --amber-ink: #fff6e8;
+  --card-bg: rgba(255, 255, 255, 0.55);
+  --card-border: rgba(201, 119, 31, 0.3);
+  --input-bg: rgba(255, 255, 255, 0.55);
+  --ticker-bg: rgba(255, 255, 255, 0.45);
+  --text: #3a2410;
+  --text-dim: #8a6a45;
+  --grain-opacity: 0.035;
+  --grain-blend: multiply;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 25% -10%, var(--bg-3), var(--bg-2) 45%, var(--bg-1) 85%);
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 48px;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+header {
+  position: relative;
+  text-align: center;
+  padding-top: 8px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(22px, 6vw, 28px);
+  letter-spacing: 0.02em;
+}
+
+header .subtitle {
+  margin: 6px 0 0;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.08);
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: fade-up 0.5s ease both;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Decorative bottle with liquid wave --- */
+
+.bottle-visual {
+  width: 70px;
+  height: 150px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(0, 0, 0, 0.12);
+  clip-path: path(
+    "M28,4 L28,22 C28,26 24,28 24,34 L24,44 C14,48 9,60 9,72 L9,140 C9,146 14,150 21,150 L49,150 C56,150 61,146 61,140 L61,72 C61,60 56,48 46,44 L46,34 C46,28 42,26 42,22 L42,4 Z"
+  );
+}
+
+.bottle-liquid {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--amber-light), var(--amber));
+  transform: translateY(calc((1 - var(--fill, 0)) * 100%));
+  transition: transform 0.5s ease;
+}
+
+.bottle-liquid::before {
+  content: "";
+  position: absolute;
+  left: -35%;
+  top: -4px;
+  width: 170%;
+  height: 10px;
+  background-repeat: repeat-x;
+  background-size: 35px 10px;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35 10'%3E%3Cpath d='M0,5 Q8.75,0 17.5,5 T35,5 V10 H0 Z' fill='white' fill-opacity='0.6'/%3E%3C/svg%3E");
+  animation: wave-scroll 2.8s linear infinite;
+}
+
+@keyframes wave-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-35px);
+  }
+}
+
+.bottle-outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--card-border);
+  stroke-width: 2.5;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+#currencyInput,
+#bottlesInput {
+  width: 100%;
+  border: 1px solid var(--card-border);
+  background: var(--input-bg);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 18px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#currencyInput:focus,
+#bottlesInput:focus {
+  border-color: var(--amber);
+}
+
+#currencyInput:focus {
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.2);
+}
+
+/* --- Currency flag buttons --- */
+
+.currency-toggle {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.currency-btn {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--card-border);
+  background: var(--input-bg);
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 4px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.currency-btn .flag-icon {
+  display: block;
+  width: 28px;
+  height: 19px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  line-height: 0;
+}
+
+.currency-btn .flag-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.currency-btn .currency-code {
+  font-size: 13px;
+}
+
+.currency-btn.active {
+  background: linear-gradient(135deg, var(--amber), var(--amber-light));
+  color: var(--amber-ink);
+  border-color: transparent;
+}
+
+/* --- Swap direction button --- */
+
+.swap-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: var(--input-bg);
+  color: var(--amber-light);
+  font-size: 19px;
+  cursor: pointer;
+  align-self: center;
+  margin: -6px 0;
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+
+.swap-btn:hover {
+  background: rgba(232, 163, 61, 0.15);
+}
+
+.swap-btn.flipped {
+  transform: rotate(180deg);
+}
+
+.volume-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 4px;
+}
+
+.toggle-pill {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 3);
+  height: calc(100% - 8px);
+  background: linear-gradient(135deg, var(--amber), var(--amber-light));
+  border-radius: 10px;
+  transition: transform 0.25s ease;
+  z-index: 0;
+}
+
+.volume-toggle[data-volume="0.35"] .toggle-pill {
+  transform: translateX(100%);
+}
+
+.volume-toggle[data-volume="0.5"] .toggle-pill {
+  transform: translateX(200%);
+}
+
+.volume-btn {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.volume-btn.active {
+  color: var(--amber-ink);
+}
+
+/* --- Odometer --- */
+
+.odometer-wrap {
+  position: relative;
+}
+
+#bottlesInput {
+  font-size: clamp(34px, 11vw, 48px);
+  font-weight: 700;
+  color: transparent;
+  caret-color: var(--amber-light);
+  text-align: center;
+  background: var(--input-bg);
+  padding: 14px 8px;
+  letter-spacing: 0.01em;
+}
+
+#bottlesInput:focus {
+  color: var(--amber-light);
+}
+
+#bottlesInput.pulse {
+  animation: pulse 0.25s ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.035);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.odometer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--input-bg);
+  border-radius: 14px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.odometer.hidden {
+  opacity: 0;
+}
+
+.odometer-digit {
+  display: inline-block;
+  overflow: hidden;
+  height: 1em;
+  width: 0.62em;
+  font-size: clamp(34px, 11vw, 48px);
+  font-weight: 700;
+  color: var(--amber-light);
+  line-height: 1;
+}
+
+.odometer-digit .strip {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--d, 0) * -10%));
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.odometer-digit .strip span {
+  height: 1em;
+  line-height: 1;
+  text-align: center;
+}
+
+.odometer-digit.punct {
+  width: 0.3em;
+}
+
+.odometer-digit.punct .strip {
+  transform: none;
+  transition: none;
+}
+
+.result-label {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: -8px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--amber);
+}
+
+/* --- Result: bottle row + change line --- */
+
+.result-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bottle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  font-size: 26px;
+  min-height: 32px;
+  line-height: 1;
+}
+
+.bottle-icon {
+  display: inline-block;
+}
+
+.bottle-row .overflow-count {
+  font-size: 14px;
+  color: var(--text-dim);
+  align-self: center;
+  margin-left: 2px;
+}
+
+.change-line {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin: 0;
+  min-height: 16px;
+}
+
+/* --- Ticker --- */
+
+.ticker {
+  overflow: hidden;
+  background: var(--ticker-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 8px 0;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 26s linear infinite;
+}
+
+.ticker-seg {
+  display: flex;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--amber-light);
+  padding-right: 40px;
+}
+
+.ticker-seg span {
+  padding-right: 40px;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+.footer-warning {
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 18px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottle-liquid::before,
+  .ticker-track {
+    animation: none;
+  }
+}

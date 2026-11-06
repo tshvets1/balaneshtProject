@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru" data-theme="evening">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Баланешт-конвертер</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+        <h1>🥃 Аур де Баланешть</h1>
+        <p class="subtitle">конвертер валют в бутылки</p>
+      </header>
+
+      <main class="card">
+        <div class="bottle-visual" id="bottleVisual" style="--fill: 0">
+          <div class="bottle-liquid"></div>
+          <svg class="bottle-outline" viewBox="0 0 70 150" aria-hidden="true">
+            <path
+              d="M28,4 L28,22 C28,26 24,28 24,34 L24,44 C14,48 9,60 9,72 L9,140 C9,146 14,150 21,150 L49,150 C56,150 61,146 61,140 L61,72 C61,60 56,48 46,44 L46,34 C46,28 42,26 42,22 L42,4 Z"
+            />
+          </svg>
+        </div>
+
+        <div class="field currency-field">
+          <label for="currencyInput">Сумма</label>
+          <input
+            id="currencyInput"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            placeholder="0"
+          />
+          <div class="currency-toggle" id="currencyToggle"></div>
+        </div>
+
+        <button type="button" class="swap-btn" id="swapBtn" aria-label="Сменить направление">⇄</button>
+
+        <div class="volume-toggle" id="volumeToggle" data-volume="0.2">
+          <span class="toggle-pill"></span>
+          <button type="button" class="volume-btn active" data-volume="0.2">0.2 л</button>
+          <button type="button" class="volume-btn" data-volume="0.35">0.35 л</button>
+          <button type="button" class="volume-btn" data-volume="0.5">0.5 л</button>
+        </div>
+
+        <div class="field bottles-field">
+          <label for="bottlesInput">Бутылки Баланешть</label>
+          <div class="odometer-wrap">
+            <input
+              id="bottlesInput"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              placeholder="0"
+            />
+            <div class="odometer" id="odometerDisplay" aria-hidden="true"></div>
+          </div>
+          <p class="result-label">можно вводить и здесь — пересчитает сумму в валюте</p>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="fractionCheckbox" />
+          <span>Показывать дробные значения (иначе округление вниз)</span>
+        </label>
+
+        <div class="result-block">
+          <div class="bottle-row" id="bottleRow"></div>
+          <p class="change-line" id="changeLine"></p>
+        </div>
+      </main>
+
+      <div class="ticker" id="ticker">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+
+      <footer>
+        <p>курс напитка обновлён: <span id="rateDate"></span></p>
+        <p class="footer-warning">Чрезмерное употребление вредит здоровью. 18+</p>
+      </footer>
+    </div>
+
+    <script src="js/rates.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
