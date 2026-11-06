@@ -15,13 +15,22 @@
       </header>
 
       <main class="card">
-        <div class="bottle-visual" id="bottleVisual" style="--fill: 0">
-          <div class="bottle-liquid"></div>
-          <svg class="bottle-outline" viewBox="0 0 70 150" aria-hidden="true">
-            <path
-              d="M28,4 L28,22 C28,26 24,28 24,34 L24,44 C14,48 9,60 9,72 L9,140 C9,146 14,150 21,150 L49,150 C56,150 61,146 61,140 L61,72 C61,60 56,48 46,44 L46,34 C46,28 42,26 42,22 L42,4 Z"
-            />
-          </svg>
+        <div class="hero-row">
+          <div class="bottle-visual" id="bottleVisual" style="--fill: 0">
+            <div class="bottle-liquid"></div>
+            <svg class="bottle-outline" viewBox="0 0 52.5 112.5" aria-hidden="true">
+              <path
+                d="M21,3 L21,16.5 C21,19.5 18,21 18,25.5 L18,33 C10.5,36 6.75,45 6.75,54 L6.75,105 C6.75,109.5 10.5,112.5 15.75,112.5 L36.75,112.5 C42,112.5 45.75,109.5 45.75,105 L45.75,54 C45.75,45 42,36 34.5,33 L34.5,25.5 C34.5,21 31.5,19.5 31.5,16.5 L31.5,3 Z"
+              />
+            </svg>
+          </div>
+
+          <div class="volume-toggle" id="volumeToggle" data-volume="0.2">
+            <span class="toggle-pill"></span>
+            <button type="button" class="volume-btn active" data-volume="0.2">0.2 л</button>
+            <button type="button" class="volume-btn" data-volume="0.35">0.35 л</button>
+            <button type="button" class="volume-btn" data-volume="0.5">0.5 л</button>
+          </div>
         </div>
 
         <div class="field currency-field">
@@ -37,13 +46,6 @@
         </div>
 
         <button type="button" class="swap-btn" id="swapBtn" aria-label="Сменить направление">⇄</button>
-
-        <div class="volume-toggle" id="volumeToggle" data-volume="0.2">
-          <span class="toggle-pill"></span>
-          <button type="button" class="volume-btn active" data-volume="0.2">0.2 л</button>
-          <button type="button" class="volume-btn" data-volume="0.35">0.35 л</button>
-          <button type="button" class="volume-btn" data-volume="0.5">0.5 л</button>
-        </div>
 
         <div class="field bottles-field">
           <label for="bottlesInput">Бутылки Баланешть</label>

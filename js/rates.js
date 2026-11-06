@@ -14,8 +14,8 @@
 // браузер по CORS из file:// не грузит.
 
 const RATES = {
-  PLN: { "0.2": 11, "0.35": 19, "0.5": 25 },
   BYN: { "0.2": 8, "0.35": 14, "0.5": 19 },
+  PLN: { "0.2": 11, "0.35": 19, "0.5": 25 },
   USD: { "0.2": 3, "0.35": 5, "0.5": 6 },
 };
 
@@ -27,19 +27,19 @@ const RATES = {
 // из-за чего в разных браузерах кнопки выглядели по-разному. SVG рисуется
 // одинаково везде.
 const CURRENCY_LABELS = {
-  PLN: {
-    code: "PLN",
-    symbol: "zł",
-    name: "Злотый",
-    flagSvg:
-      '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#fff"/><rect y="1" width="3" height="1" fill="#dc143c"/></svg>',
-  },
   BYN: {
     code: "BYN",
     symbol: "Br",
     name: "Белорусский рубль",
     flagSvg:
       '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#d22730"/><rect y="1.333" width="3" height="0.667" fill="#4aa657"/><rect width="0.33" height="2" fill="#fff"/><rect x="0.04" width="0.05" height="2" fill="#d22730"/><rect x="0.14" width="0.05" height="2" fill="#d22730"/><rect x="0.24" width="0.05" height="2" fill="#d22730"/></svg>',
+  },
+  PLN: {
+    code: "PLN",
+    symbol: "zł",
+    name: "Злотый",
+    flagSvg:
+      '<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#fff"/><rect y="1" width="3" height="1" fill="#dc143c"/></svg>',
   },
   USD: {
     code: "USD",
