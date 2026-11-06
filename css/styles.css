@@ -520,7 +520,7 @@ header .subtitle {
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: marquee 26s linear infinite;
+  animation: marquee 32s linear infinite;
 }
 
 .ticker-seg {

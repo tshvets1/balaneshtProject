@@ -324,7 +324,7 @@ function buildTicker() {
     const { symbol } = CURRENCY_LABELS[code];
     for (const vol of VOLUMES) {
       const rate = RATES[code][vol];
-      const perUnit = (1 / rate).toFixed(3);
+      const perUnit = trimNumber((1 / rate).toFixed(2));
       parts.push(`1 ${code} (${symbol}) = ${perUnit} 🍾 бут. (${vol} л)`);
     }
   }
