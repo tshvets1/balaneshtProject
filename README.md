@@ -1,48 +1,48 @@
-# Баланешт-конвертер
+# Balanesht Konvertor
 
-Конвертер валют (PLN / BYN / USD) в бутылки коньяка "Аур де Баланешть" (0.2 л / 0.5 л) и обратно.
-Чистый HTML/CSS/JS, без бэкенда и сборки.
+Currency converter (PLN / BYN / USD) to bottles of "Aur de Balanesht" cognac (0.2 L / 0.5 L) and back.
+Pure HTML/CSS/JS, no backend and no build step.
 
-## Структура
+## Structure
 
-- `index.html` — разметка страницы
-- `css/styles.css` — стили
-- `js/rates.js` — **курс напитка** (цена бутылки 0.2 и 0.5 л в каждой валюте)
-- `js/app.js` — логика конвертации и UI
+- `index.html` — page markup
+- `css/styles.css` — styles
+- `js/rates.js` — **drink exchange rate** (bottle price for 0.2 L and 0.5 L in each currency)
+- `js/app.js` — conversion logic and UI
 
-## Как обновить курс
+## How to update the rate
 
-Открой `js/rates.js` и поменяй числа в `RATES`. Больше ничего делать не нужно —
-страница подхватит новые значения сразу после обновления файла на сервере/в репозитории.
+Open `js/rates.js` and change the numbers in `RATES`. Nothing else is needed —
+the page will pick up the new values as soon as the file is updated on the server/in the repo.
 
-## Локальный просмотр
+## Local preview
 
-Просто открой `index.html` в браузере (двойной клик / «Открыть с помощью» → браузер).
-Сервер не нужен — `rates.js` и `app.js` подключены как обычные скрипты, а не
-ES-модули, поэтому `file://` не блокируется CORS'ом.
+Just open `index.html` in a browser (double-click / "Open with" → browser).
+No server is needed — `rates.js` and `app.js` are included as regular scripts, not
+ES modules, so `file://` is not blocked by CORS.
 
-## Деплой на GitHub Pages
+## Deploying to GitHub Pages
 
-1. Создай репозиторий на GitHub и запушь туда содержимое этой папки.
-2. В репозитории: Settings → Pages → Build and deployment → Source: **Deploy from a branch**,
-   branch `main`, папка `/ (root)`.
-3. Через минуту сайт появится на `https://<username>.github.io/<repo>/`.
+1. Create a repository on GitHub and push the contents of this folder there.
+2. In the repository: Settings → Pages → Build and deployment → Source: **Deploy from a branch**,
+   branch `main`, folder `/ (root)`.
+3. The site will appear at `https://<username>.github.io/<repo>/` within a minute.
 
-Никакого `.nojekyll` или билд-шага не требуется — это статические файлы.
+No `.nojekyll` or build step is required — these are static files.
 
-## Про бэкенд (на будущее)
+## About a backend (for the future)
 
-Сейчас курс зашит в `rates.js`, и это осознанный выбор для GitHub Pages (там нет бэкенда,
-только статика). Если позже захочется редактировать курс без git push:
+The rate is currently hardcoded in `rates.js`, which is a deliberate choice for GitHub Pages (it has no
+backend, only static hosting). If you later want to edit the rate without a git push:
 
-- **GitHub Pages + "бэкенд"**: сам GH Pages бэкенд не поддерживает, но можно подключить
-  внешний сервис (например отдельный маленький API) и дёргать его из `app.js` через `fetch`.
-- **Railway / Render / Fly.io** — это обычные хостинги для Node.js (или любого) сервера.
-  Туда можно задеплоить, например, Express-сервис с `/rates` эндпоинтом и простой админкой,
-  а статику (этот сайт) оставить на GitHub Pages — фронт просто будет ходить за курсом на Railway.
-- Промежуточный вариант без своего сервера — хранить `rates.json` в Google Sheets /
-  GitHub Gist / Cloudflare KV и читать его через `fetch` при загрузке страницы.
+- **GitHub Pages + "backend"**: GH Pages itself doesn't support a backend, but you can connect
+  an external service (e.g. a small separate API) and call it from `app.js` via `fetch`.
+- **Railway / Render / Fly.io** — regular hosting for a Node.js (or any) server.
+  You could deploy, for example, an Express service with a `/rates` endpoint and a simple admin panel,
+  while keeping the static site on GitHub Pages — the frontend would just fetch the rate from Railway.
+- An intermediate option without your own server — store `rates.json` in Google Sheets /
+  a GitHub Gist / Cloudflare KV and read it via `fetch` on page load.
 
-Для текущих задач (3 валюты, 2 литража) хардкод в `rates.js` — самый простой и
-поддерживаемый вариант, менять его не обязательно, пока не понадобится редактировать
-курс чаще, чем через git.
+For the current scope (3 currencies, 2 bottle sizes), hardcoding in `rates.js` is the simplest
+and most maintainable option — no need to change it unless you need to edit the
+rate more often than via git.
